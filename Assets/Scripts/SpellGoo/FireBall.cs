@@ -15,6 +15,7 @@ public class FireBall : MonoBehaviour
 
     public Transform[] particles;
     Rigidbody rigidBody;
+    bool hitTarget = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,21 +63,23 @@ public class FireBall : MonoBehaviour
 
         if (other.transform.root.tag != "Player" && other.tag != "FireBall" && other.tag != "WarningZone" && other.tag != "PickUp")
         {
-            Debug.Log(other);
-
-            Instantiate(particles[0], this.transform.position, this.transform.rotation);
-            Destroy(gameObject, 0f);
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
-            int i = 0;
-            while (i < hitColliders.Length)
+            if (!hitTarget)
             {
-
-                SkeleController skeleController = hitColliders[i].GetComponent<SkeleController>();
-                if (skeleController != null)
+                hitTarget = true;
+                Instantiate(particles[0], this.transform.position, this.transform.rotation);
+                Destroy(gameObject, 0f);
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
+                int i = 0;
+                while (i < hitColliders.Length)
                 {
-                    skeleController.TakeDamage(damage);
+
+                    SkeleController skeleController = hitColliders[i].GetComponent<SkeleController>();
+                    if (skeleController != null)
+                    {
+                        skeleController.TakeDamage(damage);
+                    }
+                    i++;
                 }
-                i++;
             }
         }
 

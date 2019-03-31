@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     CharacterController controller;
     Animator anim;
     Transform camera;
+
     // Start is called before the first frame update
     void Start()
     {

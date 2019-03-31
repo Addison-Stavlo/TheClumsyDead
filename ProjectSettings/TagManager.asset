@@ -17,6 +17,7 @@ TagManager:
   - ScoreBoard
   - WaveTimer
   - PickUp
+  - GameOver
   layers:
   - Default
   - TransparentFX

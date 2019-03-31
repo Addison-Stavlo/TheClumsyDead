@@ -13,7 +13,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     void Update()
     {
-        transform.LookAt(camera);
-        // transform.LookAt(transform.position + camera.transform.rotation * Vector3.forward, camera.transform.rotation * Vector3.up);
+        // transform.LookAt(camera);
+        transform.LookAt(transform.position + camera.transform.rotation * Vector3.forward, camera.transform.rotation * Vector3.up);
     }
 }
