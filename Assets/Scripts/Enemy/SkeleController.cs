@@ -18,6 +18,8 @@ public class SkeleController : MonoBehaviour
     public float attackSwingTime = 1.2f;
     public float swingLoadUp = 0.8f;
     float attackCollisionTimer;
+
+    public float dropChance = 0.25f;
     private UnityEngine.UI.Image healthBar;
     private UnityEngine.UI.Image healthBarBG;
     Vector3 spawnPoint;
@@ -31,6 +33,7 @@ public class SkeleController : MonoBehaviour
 
     Transform skelePosition;
 
+    public GameObject[] itemDrops;
     ScoreManager scoreManager;
     // Start is called before the first frame update
     void Start()
@@ -144,10 +147,22 @@ public class SkeleController : MonoBehaviour
     void Die()
     {
         anim.Play("Death");
+        DropItem();
+        // Destroy(gameObject, 3);
         scoreManager.AddPoints();
         isDead = true;
         collision.enabled = false;
         healthBar.enabled = false;
         healthBarBG.enabled = false;
+    }
+
+    void DropItem()
+    {
+        float dropRoll = Random.Range(0f, 1f);
+        if (dropRoll <= dropChance)
+        {
+            int indexToDrop = Mathf.Min(Random.Range(0, itemDrops.Length));
+            Instantiate(itemDrops[indexToDrop], transform.position, transform.rotation);
+        }
     }
 }

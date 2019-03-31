@@ -183,4 +183,9 @@ public class PlayerController : MonoBehaviour
         controller.Move(moveDir * Time.deltaTime);
     }
 
+    public void AcceptStamina(float amount)
+    {
+        currentEndurance = Mathf.Min(maxEndurance, currentEndurance + amount);
+        enduranceBar.fillAmount = currentEndurance / maxEndurance;
+    }
 }

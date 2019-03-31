@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 296664459}
   - component: {fileID: 296664458}
   - component: {fileID: 296664457}
-  - component: {fileID: 296664456}
+  - component: {fileID: 4173464010102100760}
   m_Layer: 0
   m_Name: EnemyCanvas
   m_TagString: Untagged
@@ -432,7 +432,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &296664456
+--- !u!114 &4173464010102100760
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -441,7 +441,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 296664454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc857748b1cf55438a70335f964bfda, type: 3}
+  m_Script: {fileID: 11500000, guid: 1963ecdeaabf88f428a9df7b4bd287d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &299145173
@@ -578,7 +578,7 @@ MonoBehaviour:
   m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
 --- !u!1 &548495151
 GameObject:
@@ -1329,6 +1329,10 @@ MonoBehaviour:
   isDead: 0
   attackSwingTime: 1.2
   swingLoadUp: 0.8
+  dropChance: 0.1
+  itemDrops:
+  - {fileID: 460247051199168200, guid: 74931305cc990fd4c9727ee69793745c, type: 3}
+  - {fileID: 8496039215099906592, guid: 4e412883b6582de40bad17915e490659, type: 3}
 --- !u!195 &1261290470
 NavMeshAgent:
   m_ObjectHideFlags: 0

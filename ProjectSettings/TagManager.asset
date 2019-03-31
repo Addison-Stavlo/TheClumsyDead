@@ -16,6 +16,7 @@ TagManager:
   - EnemyManager
   - ScoreBoard
   - WaveTimer
+  - PickUp
   layers:
   - Default
   - TransparentFX

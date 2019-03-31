@@ -43,12 +43,11 @@ public class FireBall : MonoBehaviour
     {
         // 'attach' to ground if it gets low enough
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, new Vector3(0, -1, 0), out hit, 1f))
+        if (Physics.Raycast(transform.position, new Vector3(0, -1, 0), out hit, 2f))
         {
             if (hit.transform.root.tag != "Player")
             {
-                Debug.Log(hit.distance);
-                float height = transform.position.y + 0.9f - hit.distance;
+                float height = transform.position.y + 1f - hit.distance;
                 transform.position = new Vector3(transform.position.x, height, transform.position.z);
                 moveDir = new Vector3(moveDir.x, 0, moveDir.z);
                 moveDir = Vector3.Normalize(moveDir);
@@ -61,7 +60,7 @@ public class FireBall : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
-        if (other.transform.root.tag != "Player" && other.tag != "FireBall" && other.tag != "WarningZone")
+        if (other.transform.root.tag != "Player" && other.tag != "FireBall" && other.tag != "WarningZone" && other.tag != "PickUp")
         {
             Debug.Log(other);
 

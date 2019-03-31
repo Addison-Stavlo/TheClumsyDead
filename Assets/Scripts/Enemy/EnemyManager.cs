@@ -22,6 +22,7 @@ public class EnemyManager : MonoBehaviour
     Text waveTimerText;
     void Start()
     {
+        liveEnemies = new GameObject[0];
         waveCounter = GameObject.FindGameObjectWithTag("WaveCounter").GetComponent<Text>();
         waveTimerText = GameObject.FindGameObjectWithTag("WaveTimer").GetComponent<Text>();
         Spawn();
@@ -53,6 +54,13 @@ public class EnemyManager : MonoBehaviour
 
     void Spawn()
     {
+        if (liveEnemies.Length > 0)
+        {
+            foreach (GameObject enemy in liveEnemies)
+            {
+                Destroy(enemy, 2);
+            }
+        }
         waveNumber += 1;
         waveCounter.text = "Wave: " + waveNumber;
         liveEnemies = new GameObject[startingEnemies];

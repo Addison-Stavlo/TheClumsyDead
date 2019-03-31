@@ -4618,7 +4618,7 @@ MonoBehaviour:
   rotSpeed: 80
   gravity: 8
   jumpSpeed: 8
-  sprintCost: 10
+  sprintCost: 30
   enduranceRegen: 10
 --- !u!114 &2053418122
 MonoBehaviour:
@@ -4663,6 +4663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85cf4e1f0df003e489efbc4d32ed299a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healManaCost: 50
+  healAmount: 50
+  fireManaCost: 50
   spells:
   - {fileID: 269175414, guid: cd497c298e3d0b641a75e9e43932043c, type: 3}
   maxMana: 100
