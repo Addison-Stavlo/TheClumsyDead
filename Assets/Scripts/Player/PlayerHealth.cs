@@ -23,6 +23,7 @@ public class PlayerHealth : MonoBehaviour
     PlayerMelee playerMelee;
     Transform camera;
 
+    Transform highScoresTable;
     Text gameOver;
 
     float restartDelay = 5f;
@@ -41,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
         playerCasting = GetComponent<PlayerCasting>();
         camera = GameObject.FindGameObjectWithTag("CameraBoom").transform;
         gameOver = GameObject.FindGameObjectWithTag("GameOver").GetComponent<Text>();
+        highScoresTable = transform.Find("Canvas").Find("HighScoresTable");
     }
 
     // Update is called once per frame
@@ -61,11 +63,11 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             //dead so restart game/scene
-            restartTimer += Time.deltaTime;
-            if (restartTimer >= restartDelay)
-            {
-                SceneManager.LoadScene(0);
-            }
+            // restartTimer += Time.deltaTime;
+            // if (restartTimer >= restartDelay)
+            // {
+            //     SceneManager.LoadScene(0);
+            // }
         }
     }
 
@@ -97,6 +99,8 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
         anim.Play("DeathAnim");
         gameOver.enabled = true;
+        Cursor.lockState = CursorLockMode.None;
+        highScoresTable.gameObject.SetActive(true);
         transform.eulerAngles = new Vector3(transform.rotation.x + 90, transform.rotation.y, transform.rotation.z);
         camera.eulerAngles = new Vector3(-90, transform.rotation.y, 0);
         playerAudio.clip = deathClip;

@@ -8,13 +8,15 @@ using System;
 using System.Text;
 // using System.IO;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 public class HighScores : MonoBehaviour
 {
     private Transform entryContainer;
     private Transform entryTemplate;
 
+    public ScoreManager scoreManager;
     private Button submitButton;
-    private Transform inputField;
+    private InputField inputField;
 
     [Serializable]
     public class Score
@@ -48,18 +50,21 @@ public class HighScores : MonoBehaviour
                 // Debug.Log(":\nReceived: " + webRequest.downloadHandler.text);
                 scoreInfo = JsonUtility.FromJson<ScoreInfo>("{\"scores\":" + webRequest.downloadHandler.text + "}");
                 ListScores();
+                inputField.Select();
             }
         }
     }
 
     IEnumerator PostScore()
     {
-        Debug.Log("starting post");
+        // InputField inputText = inputField as InputField;
         Score newScore = new Score();
-        newScore.name = inputField.Find("Text").GetComponent<Text>().text;
-        newScore.score = 5007.1f;
+        newScore.name = inputField.text;
+        newScore.score = scoreManager.score;
         string jsonScore = JsonUtility.ToJson(newScore);
-        // Debug.Log(jsonScore);
+
+        // clear input field
+        inputField.text = "";
 
         string uri = "https://arcade-scores.herokuapp.com/arcadeScores/clumsyScore";
 
@@ -78,45 +83,37 @@ public class HighScores : MonoBehaviour
         if (webRequest.isNetworkError || webRequest.isHttpError)
         {
             Debug.Log("Error: " + webRequest.error + webRequest.downloadHandler.text);
+            ChangeFooter();
         }
         else
         {
-            // Debug.Log(":\nReceived: " + webRequest.downloadHandler.text);
             scoreInfo = JsonUtility.FromJson<ScoreInfo>("{\"scores\":" + webRequest.downloadHandler.text + "}");
             ListScores();
+            ChangeFooter();
         }
-
     }
 
     private void Awake()
     {
-        // Debug.Log(Environment.UserName);
+        scoreManager = GameObject.FindWithTag("ScoreBoard").GetComponent<ScoreManager>();
         entryContainer = transform.Find("entryContainer");
         entryTemplate = entryContainer.Find("entryTemplate");
 
         entryTemplate.gameObject.SetActive(false);
 
-        // Score newScore = new Score();
-        // newScore.name = "Judie Hopps";
-        // newScore.score = 0.1f;
-        // StartCoroutine(PostScore(newScore));
-        StartCoroutine(GetScores());
+        transform.Find("Footer Background").Find("playerScore").GetComponent<Text>().text = "Your Score: " + scoreManager.score;
+        inputField = transform.Find("Footer Background").Find("InputField").GetComponent<InputField>();
 
-        inputField = transform.Find("Footer Background").Find("InputField");
-        submitButton = inputField.Find("SubmitButton").GetComponent<Button>();
-
+        submitButton = transform.Find("Footer Background").Find("InputField").Find("SubmitButton").GetComponent<Button>();
         submitButton.onClick.AddListener(() => StartCoroutine(PostScore()));
+
+        StartCoroutine(GetScores());
     }
 
     private void ListScores()
     {
         entryContainer = transform.Find("entryContainer");
         entryTemplate = entryContainer.Find("entryTemplate");
-
-        // entryTemplate.gameObject.SetActive(false);
-
-        // ScoreInfo highScores = await GetScores();
-
         //turn off all previous entries / placeholder entry
         foreach (Transform child in entryContainer)
         {
@@ -166,5 +163,24 @@ public class HighScores : MonoBehaviour
         }
 
         return rankStr;
+    }
+
+    private void ChangeFooter()
+    {
+        transform.Find("Footer Background").gameObject.SetActive(false);
+        Transform restartFooter = transform.Find("Footer Background Restart");
+        restartFooter.gameObject.SetActive(true);
+
+        Button restartButton = restartFooter.Find("Button").GetComponent<Button>();
+        restartButton.onClick.AddListener(() => SceneManager.LoadScene(0));
+        restartButton.Select();
+    }
+
+    private void OnGUI()
+    {
+        if (inputField.isFocused && Input.GetKey(KeyCode.Return))
+        {
+            StartCoroutine(PostScore());
+        }
     }
 }
