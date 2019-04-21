@@ -9,7 +9,6 @@ public class FireBall : MonoBehaviour
     public float explosionRadius = 10f;
 
     Vector3 moveDir = Vector3.zero;
-    CharacterController controller;
     Transform camera;
 
 
@@ -19,25 +18,16 @@ public class FireBall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
         rigidBody = GetComponent<Rigidbody>();
         camera = GameObject.FindWithTag("MainCamera").transform;
         moveDir = camera.forward;
-        // moveDir = transform.TransformDirection(moveDir);
         rigidBody.velocity = moveDir * speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // controller.Move(moveDir * speed * Time.deltaTime);
 
-        // RaycastHit hit;
-        // if (Physics.Raycast(transform.position, new Vector3(0, -1, 0), out hit, 2))
-        // {
-        //     float height = transform.position.y + 1 - hit.distance;
-        //     transform.position = new Vector3(transform.position.x, height, transform.position.z);
-        // }
     }
 
     void FixedUpdate()
