@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    float score;
+    public float score;
     float baseScore = 1000f;
 
     float waveTimer;
