@@ -17,15 +17,18 @@ public class PlayerController : MonoBehaviour
     float currentEndurance;
     bool isSprinting;
 
+    public bool optionsOpen = false;
     private UnityEngine.UI.Image enduranceBar;
     Vector3 moveDir = Vector3.zero;
     CharacterController controller;
     Animator anim;
     Transform camera;
 
+    Transform escOptions;
     // Start is called before the first frame update
     void Start()
     {
+        escOptions = transform.Find("Canvas").Find("EscOptions");
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         camera = GameObject.FindGameObjectWithTag("CameraBoom").transform;
@@ -38,6 +41,23 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         Camera();
+        OptionsMenu();
+    }
+    void OptionsMenu()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (!optionsOpen)
+            {
+                optionsOpen = true;
+                escOptions.gameObject.SetActive(true);
+            }
+            else
+            {
+                optionsOpen = false;
+                escOptions.gameObject.SetActive(false);
+            }
+        }
     }
 
     void Camera()

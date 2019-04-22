@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/MyCrappyScene.unity
+    guid: 12fbd63355cf47c4cafa2338036b8ab2
   m_configObjects: {}
