@@ -19,6 +19,7 @@ public class SkeleController : MonoBehaviour
     public float swingLoadUp = 0.8f;
     float attackCollisionTimer;
 
+    AudioSource skeleAudio;
     public float dropChance = 0.25f;
     private UnityEngine.UI.Image healthBar;
     private UnityEngine.UI.Image healthBarBG;
@@ -39,6 +40,7 @@ public class SkeleController : MonoBehaviour
     void Start()
     {
         // controller = GetComponent<CharacterController>();
+        skeleAudio = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         scoreManager = GameObject.FindGameObjectWithTag("Player").transform.Find("Canvas").Find("ScoreBoard").GetComponent<ScoreManager>();
@@ -135,6 +137,7 @@ public class SkeleController : MonoBehaviour
             hitPoints -= damage;
             healthBar.fillAmount = hitPoints / maxHP;
             anim.Play("Damage");
+            skeleAudio.Play();
 
             if (hitPoints <= 0)
             {

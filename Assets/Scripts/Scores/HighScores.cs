@@ -95,6 +95,7 @@ public class HighScores : MonoBehaviour
 
     private void Awake()
     {
+        StartCoroutine(GetScores());
         scoreManager = GameObject.FindWithTag("ScoreBoard").GetComponent<ScoreManager>();
         entryContainer = transform.Find("entryContainer");
         entryTemplate = entryContainer.Find("entryTemplate");
@@ -107,7 +108,7 @@ public class HighScores : MonoBehaviour
         submitButton = transform.Find("Footer Background").Find("InputField").Find("SubmitButton").GetComponent<Button>();
         submitButton.onClick.AddListener(() => StartCoroutine(PostScore()));
 
-        StartCoroutine(GetScores());
+
     }
 
     private void ListScores()
